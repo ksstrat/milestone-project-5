@@ -8,3 +8,16 @@ node_modules/
 .github/
 cloudinary_python.txt
 kaggle.json
+
+# Virtual environment
+.venv
+.env
+
+# Visual Studio Code
+.vscode/
+
+# Models
+models/*
+
+!models/v1/cherry_cnn.h5
+!models/v1/label_map.json
