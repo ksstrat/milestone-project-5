@@ -1,0 +1,7 @@
+jupyter_notebooks/
+data/
+artifacts/
+plots/
+reports/
+__pycache__/
+tests/
