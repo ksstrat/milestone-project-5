@@ -16,6 +16,9 @@ kaggle.json
 # Visual Studio Code
 .vscode/
 
+# Dataset
+inputs/cherry_leaves_dataset/
+
 # Models
 models/*
 
