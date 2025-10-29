@@ -38,7 +38,7 @@ Success Metric: **Model Accuracy ≥ 97% on Test Set**
 | Page | Purpose |
 |------|----------|
 | Project Summary | Dataset and business overview |
-| Visual Study (BR1) | Visual differentiations and EDA plots |
+| Visual Study (BR1) | Visual differentiations (average, variability, histograms, montages) and EDA plots |
 | Prediction (BR2) | Upload images and predict leaf health |
 | Hypotheses | List and validation of project hypotheses |
 | Technical | Model architecture, metrics, and artifacts |
@@ -63,6 +63,27 @@ Below is the mapping between the defined business requirements and their analyti
 |----------------------|------------------------------|
 | BR1 | Image montage, average image comparison, difference heatmaps |
 | BR2 | Convolutional Neural Network (CNN) classifier predicting Healthy / Mildew |
+
+## Business Requirement 1 — Visual Differentiation
+
+**Goal:** Determine whether healthy and powdery mildew–infected cherry leaves show visually measurable differences.
+
+**Approach:**  
+A visual exploratory analysis was conducted using per-class average images, per-pixel variability maps, RGB color histograms, and representative image montages.  
+All analyses were performed on normalized 100×100 resized images.
+
+**Findings:**  
+Clear visual differences were observed between the two classes:  
+- Healthy leaves exhibit strong, saturated green tones and higher edge variability due to shape.  
+- Mildew-infected leaves show flatter green distributions, elevated midtone reds, and increased central variability caused by fungal patterns.
+
+**Artifacts:**  
+Generated figures are stored under `plots/v1/`:
+- `avg_healthy.png`, `avg_powdery_mildew.png`  
+- `var_healthy.png`, `var_powdery_mildew.png`  
+- `diff_classes.png`, `hist_rgb_*.png`, `montage_*.png`
+
+These findings confirm that visual differentiation between classes is strong enough to support automated classification.
 
 ---
 
@@ -127,8 +148,8 @@ If the Heroku slug exceeds 500 MB, exclude unnecessary files using `.slugignore`
 
 ## Project Status
 Base structure completed (5 pages, navigation, local run successful).
-Next steps: Data collection, EDA, model training, and deployment.
-
+Data collection and EDA completed.
+Next steps: finalize hypothesis design and start model training.
 ---
 
 ## Credits
