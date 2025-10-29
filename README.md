@@ -47,11 +47,17 @@ Success Metric: **Model Accuracy ≥ 97% on Test Set**
 
 ## Hypotheses and Validation
 
-- Hypothesis 1: Healthy leaves and mildew-infected leaves show distinguishable texture and color differences.
-- Hypothesis 2: Reducing image size to 100x100 maintains accuracy above 97%.
-- Hypothesis 3: Model maintains high predictive performance on unseen test data and remains robust under common image variations such as lighting, color tone, and orientation changes.
+The following hypotheses are derived from the visual study (BR1) and will guide model design and evaluation.
 
-Each hypothesis will be validated using exploratory data analysis and model evaluation metrics.
+| ID | Hypothesis | Validation Plan |
+|----|-------------|------------------|
+| **H1** | Mildew-infected leaves exhibit higher texture and color variability than healthy leaves. | Compute and compare texture metrics (GLCM contrast, energy, homogeneity) and per-pixel variance between classes. |
+| **H2** | Reducing input size from 100×100 to 50×50 maintains accuracy ≥97%. | Train CNNs with both input sizes under identical conditions and compare validation/test accuracy. |
+| **H3** | Data augmentation improves generalization and reduces overfitting. | Train models with/without augmentation and analyze accuracy gap and loss curves. |
+
+Each hypothesis directly supports the business requirements:  
+- **H1** substantiates BR1 (visual differentiation).  
+- **H2** and **H3** support BR2 (robust prediction and deployment readiness).
 
 ---
 
