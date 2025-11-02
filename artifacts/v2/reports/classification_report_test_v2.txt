@@ -1,0 +1,11 @@
+[v2] Test accuracy: 0.9968
+[v2] Test loss: 0.0311
+
+                precision    recall  f1-score   support
+
+       healthy     0.9968    0.9968    0.9968       316
+powdery_mildew     0.9968    0.9968    0.9968       316
+
+      accuracy                         0.9968       632
+     macro avg     0.9968    0.9968    0.9968       632
+  weighted avg     0.9968    0.9968    0.9968       632

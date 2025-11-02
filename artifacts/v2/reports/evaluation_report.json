@@ -1,0 +1,11 @@
+{
+  "model_version": "v2",
+  "input_size": [
+    50,
+    50
+  ],
+  "test_accuracy": 0.996835470199585,
+  "test_loss": 0.031104983761906624,
+  "meets_target": true,
+  "total_samples": 632
+}
