@@ -1,0 +1,7 @@
+{
+  "hypothesis": "H2",
+  "model_v1_accuracy": 0.9984177350997925,
+  "model_v2_accuracy": 0.9920886158943176,
+  "delta_accuracy": -0.0063291192054748535,
+  "meets_target_v2": true
+}
