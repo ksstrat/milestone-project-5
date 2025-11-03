@@ -1,0 +1,12 @@
+{
+  "model_version": "v3-mild",
+  "input_size": [
+    100,
+    100
+  ],
+  "augmentation": "mild",
+  "test_accuracy": 0.9208860993385315,
+  "test_loss": 0.34220409393310547,
+  "meets_target": false,
+  "total_samples": 632
+}
