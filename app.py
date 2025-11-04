@@ -1,24 +1,46 @@
 import streamlit as st
+from src.paths import PROJECT_ROOT, DATA_DIR, MANIFESTS_DIR, PLOTS_DIR, ARTIFACTS_DIR
 from app_pages.page_01_summary import page_summary
 from app_pages.page_02_visual_study import page_visual_study
 from app_pages.page_03_prediction import page_prediction
 from app_pages.page_04_hypotheses import page_hypotheses
 from app_pages.page_05_technical import page_technical
 
-def main():
-    st.set_page_config(page_title="Mildew Detection in Cherry Leaves", layout="wide")
-    st.sidebar.title("Navigation")
+# --- Streamlit page setup ---
+st.set_page_config(
+    page_title="Mildew Detection in Cherry Leaves",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
-    pages = {
-        "Project Summary": page_summary,
-        "Visual Study (BR1)": page_visual_study,
-        "Prediction (BR2)": page_prediction,
-        "Hypotheses": page_hypotheses,
-        "Technical": page_technical,
-    }
+# --- Sidebar navigation ---
+st.sidebar.title("Navigation")
+page = st.sidebar.radio(
+    "Go to:",
+    [
+        "Project Summary",
+        "Visual Study (BR1)",
+        "Prediction (BR2)",
+        "Hypotheses",
+        "Technical",
+    ],
+    index=0,
+)
 
-    choice = st.sidebar.radio("Go to", list(pages.keys()))
-    pages[choice]()
+# --- Page routing ---
+if page == "Project Summary":
+    page_summary()
+elif page == "Visual Study (BR1)":
+    page_visual_study()
+elif page == "Prediction (BR2)":
+    page_prediction()
+elif page == "Hypotheses":
+    page_hypotheses()
+elif page == "Technical":
+    page_technical()
+else:
+    st.error("Unknown page selection.")
 
-if __name__ == "__main__":
-    main()
+# --- Sidebar footer info ---
+st.sidebar.markdown("---")
+st.sidebar.caption("Cherry Leaves Project · 2025")
