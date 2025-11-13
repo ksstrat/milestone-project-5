@@ -63,12 +63,24 @@ def _img(path: Path, caption: str | None = None):
 
 # --- H1 section ---
 def _section_h1():
-    st.subheader("H1 — Texture & Color Variability (GLCM)")
+    st.subheader("H1 — Texture & Colour Variability")
 
     st.write(
-        "We compare GLCM texture features between **healthy** and **powdery mildew** leaves. "
-        "A non-parametric test (Mann-Whitney U) and a rank-based effect size (Cliff's Delta) "
-        "quantify distribution differences."
+        """
+        **Hypothesis:**
+        Healthy and mildew-infected cherry leaves differ in their texture and
+        colour distribution in a measurable and statistically verifiable way.
+
+        This hypothesis supports **BR1** by testing whether the visual
+        differences between both classes can be quantified objectively rather
+        than only observed qualitatively.
+
+        To evaluate this, we compare GLCM-based texture features extracted
+        from healthy and powdery-mildew-infected leaves.
+        A non-parametric Mann-Whitney U test, together with Cliff's Delta as a
+        rank-based effect size, is used to assess distribution differences
+        between the two groups.
+        """
     )
 
     cols = st.columns(2)
@@ -80,20 +92,21 @@ def _section_h1():
     with cols[1]:
         means = _load_csv(FEATURES_DIR_V1 / "glcm_feature_means.csv")
         if means is not None and not means.empty:
-            st.markdown("**Class-wise Means/Medians**")
+            st.markdown("**Class-wise Means / Medians (GLCM Features)**")
             st.dataframe(means, use_container_width=True, hide_index=True)
 
     _img(PLOTS_V2_DIR / "glcm_boxplots.png", caption="GLCM Features — Boxplots by Class")
 
     st.caption(
-        "Interpretation: Significant p-values with meaningful Cliff's Delta magnitudes indicate "
-        "texture differences consistent with H1."
+        """
+        Interpretation: Multiple GLCM features—such as contrast, homogeneity,
+        and energy—differ significantly between
+        healthy leaves and mildew-infected leaves. This confirms that the
+        disease affects leaf texture in a measurable way.
+        """
     )
 
-    st.success(
-        "Result: Statistical tests and effect sizes show significant texture differences between healthy "
-        "and mildew-infected leaves. H1 is therefore **supported**."
-    )
+    st.success("H1 is **supported** — clear statistical differences exist between the two classes.")
 
 
 # --- H2 section ---
@@ -101,8 +114,23 @@ def _section_h2():
     st.subheader("H2 — Input Size Impact (100x100 → 50x50)")
 
     st.write(
-        "Architecture and training remain identical to the baseline (v1). Only the input resolution "
-        "is reduced to **50x50** (v2) to test whether accuracy ≥ 97% is maintained."
+        """
+        **Hypothesis:**
+        Reducing the input image resolution from 100x100 pixels to 50x50
+        pixels preserves classification accuracy at or above the required 97%.
+
+        This hypothesis examines whether the model can operate efficiently on
+        lower-resolution inputs without losing essential information about
+        mildew-related leaf patterns. It therefore supports the long-term goal
+        of enabling fast, lightweight prediction on resource-constrained
+        devices such as mobile phones or tablets.
+
+        To evaluate this, a reduced-resolution model (v2) is trained using the
+        same architecture, optimizer, and training configuration as the
+        baseline model (v1). Only the input size is changed. A comparison of
+        test accuracy and confusion matrices across v1 and v2
+        is used to assess any loss in predictive performance.
+        """
     )
 
     rep_v1 = _load_json(REP_V1)
@@ -112,34 +140,34 @@ def _section_h2():
     cols = st.columns(2)
     with cols[0]:
         if rep_v1:
-            st.metric("v1 (100x100) — Test Accuracy", f"{rep_v1.get('test_accuracy', float('nan')):.4f}")
+            st.metric("v1 (100x100) — Accuracy", f"{rep_v1.get('test_accuracy', float('nan')):.4f}")
         if rep_v2:
-            st.metric("v2 (50x50) — Test Accuracy", f"{rep_v2.get('test_accuracy', float('nan')):.4f}")
+            st.metric("v2 (50x50) — Accuracy", f"{rep_v2.get('test_accuracy', float('nan')):.4f}")
     with cols[1]:
         if rep_v2:
             meets = rep_v2.get("meets_target", False)
-            st.markdown(f"**Target ≥ 0.97 met by v2?**  {meets}")
+            st.markdown(f"**Target ≥ 0.97 met?** {meets}")
 
     if cmp_v1_v2 is not None and not cmp_v1_v2.empty:
-        st.markdown("**v1 vs v2 — Comparison Table**")
+        st.markdown("**Comparison Table — v1 vs. v2**")
         st.dataframe(cmp_v1_v2, use_container_width=True, hide_index=True)
 
     cols2 = st.columns(2)
     with cols2[0]:
-        _img(PLOTS_V4_DIR / "h2_accuracy_v1_vs_v2.png", caption="Accuracy Comparison — v1 vs v2")
+        _img(PLOTS_V4_DIR / "h2_accuracy_v1_vs_v2.png", caption="Accuracy Comparison")
     with cols2[1]:
-        _img(PLOTS_V4_DIR / "confusion_matrix_test_v2.png", caption="Confusion Matrix — v2 Test Set")
-    
+        _img(PLOTS_V4_DIR / "confusion_matrix_test_v2.png", caption="Confusion Matrix — v2")
+
     st.caption(
-        "Interpretation: If the accuracy drop from 100x100 to 50x50 is minimal (≤1-2%) and remains above "
-        "the 97% threshold, the hypothesis is supported. Larger drops indicate sensitivity to input size, "
-        "thus not supporting H2."
+        """
+        Interpretation: Accuracy remains above 97% when reducing to 50x50
+        pixels, with only minor performance differences.
+        This suggests that essential mildew-related patterns remain detectable
+        even at lower resolution.
+        """
     )
 
-    st.success(
-        "Result: Reducing input size from 100x100 to 50x50 maintained accuracy above 97%, "
-        "indicating minimal performance loss. H2 is **supported**."
-    )
+    st.success("H2 is **supported** — reduced input resolution did not compromise performance.")
 
 
 # --- H3 section ---
@@ -147,8 +175,23 @@ def _section_h3():
     st.subheader("H3 — Data Augmentation Impact")
 
     st.write(
-        "We enable lightweight, seeded augmentation for training (flip/rotation/brightness) while "
-        "keeping validation/test unaltered. Architecture and training regime match v1."
+        """
+        **Hypothesis:**
+        Applying mild data augmentation helps the model generalise better by
+        introducing controlled variability during training and reducing
+        overfitting on the original dataset.
+
+        This hypothesis tests whether simulated transformations — such as
+        light flips, rotations, and brightness adjustments — improve
+        robustness against real-world image variation, where lighting,
+        orientation, and leaf presentation may differ from the curated dataset.
+
+        To evaluate this, a mild augmentation pipeline is applied during
+        training while keeping the validation and test sets unchanged.
+        Model performance (v3_mild) is compared against the baseline (v1)
+        using test accuracy, confusion matrices, and learning curves to
+        determine whether augmentation improves or hinders generalisation.
+        """
     )
 
     rep_v1 = _load_json(REP_V1)
@@ -158,33 +201,34 @@ def _section_h3():
     cols = st.columns(2)
     with cols[0]:
         if rep_v1:
-            st.metric("v1 (no aug) — Test Accuracy", f"{rep_v1.get('test_accuracy', float('nan')):.4f}")
+            st.metric("v1 (no augmentation) — Accuracy", f"{rep_v1.get('test_accuracy', float('nan')):.4f}")
         if rep_v3:
-            st.metric("v3 (aug) — Test Accuracy", f"{rep_v3.get('test_accuracy', float('nan')):.4f}")
+            st.metric("v3_mild (augmentation) — Accuracy", f"{rep_v3.get('test_accuracy', float('nan')):.4f}")
     with cols[1]:
         if rep_v3:
             meets = rep_v3.get("meets_target", False)
-            st.markdown(f"**Target ≥ 0.97 met by v3?**  {meets}")
+            st.markdown(f"**Target ≥ 0.97 met?** {meets}")
 
     if cmp_v1_v3 is not None and not cmp_v1_v3.empty:
-        st.markdown("**v1 vs v3 — Comparison Table**")
+        st.markdown("**Comparison Table — v1 vs. v3_mild**")
         st.dataframe(cmp_v1_v3, use_container_width=True, hide_index=True)
 
     cols2 = st.columns(2)
     with cols2[0]:
-        _img(PLOTS_V5_DIR / "h3_accuracy_v1_vs_v3_mild.png", caption="Accuracy Comparison — v1 vs v3 (mild)")
+        _img(PLOTS_V5_DIR / "h3_accuracy_v1_vs_v3_mild.png", caption="Accuracy Comparison — v1 vs. v3_mild")
     with cols2[1]:
-        _img(PLOTS_V5_DIR / "confusion_matrix_test_v3_mild.png", caption="Confusion Matrix — v3 (mild) Test Set")
+        _img(PLOTS_V5_DIR / "confusion_matrix_test_v3_mild.png", caption="Confusion Matrix — v3_mild")
 
     st.caption(
-        "Interpretation: If v3 is within noise of v1 (or slightly better) while remaining ≥ 97%, the augmentation is "
-        "considered neutral-to-beneficial. If worse, H3 is not supported and augmentation should be reduced."
+        """
+        Interpretation: Contrary to expectations, mild augmentation reduced
+        accuracy instead of improving it.
+        This shows that generic transformations may distort subtle mildew
+        patterns that are essential for correct classification.
+        """
     )
 
-    st.warning(
-        "Result: Mild augmentation led to slightly reduced test accuracy (~92%) compared to the 99% baseline. "
-        "H3 is **not supported** under the tested conditions."
-    )
+    st.warning("H3 is **not supported** — augmentation reduced generalisation performance in this context.")
 
 
 # --- Training curves ---
@@ -192,8 +236,10 @@ def _section_training_curves():
     st.subheader("Training Curves (Diagnostics)")
 
     st.write(
-        "Auxiliary learning curves for transparency. These plots visualize the training and validation "
-        "dynamics for each model version and help to interpret convergence behavior."
+        """
+        These curves illustrate how each model version behaved during training.
+        They help assess convergence, overfitting tendencies, and the effect of augmentation.
+        """
     )
 
     cols = st.columns(2)
@@ -204,22 +250,29 @@ def _section_training_curves():
 
     cols2 = st.columns(2)
     with cols2[0]:
-        _img(PLOTS_V5_DIR / "training_curves_v3.png", caption="v3 (strong aug) — Training & Validation")
+        _img(PLOTS_V5_DIR / "training_curves_v3.png", caption="v3 (strong augmentation)")
     with cols2[1]:
-        _img(PLOTS_V5_DIR / "training_curves_v3_mild.png", caption="v3 (mild aug) — Training & Validation")
+        _img(PLOTS_V5_DIR / "training_curves_v3_mild.png", caption="v3_mild (mild augmentation)")
+
+    st.caption("These diagnostics complement the hypothesis results by showing learning behaviour over time.")
 
 
 # --- Page entrypoint ---
 def render():
-    st.header("Hypotheses")
+    st.header("Hypotheses & Validation")
 
     st.write(
-        "This page summarizes the three project hypotheses (H1-H3) with their supporting tables, plots, "
-        "and evaluation results. All artifacts were generated in the Jupyter notebooks and are loaded "
-        "directly from the corresponding project directories."
+        """
+        This page summarises the three hypotheses developed during the
+        analytical phase of the project.
+        Each hypothesis examines a different aspect of the problem — from
+        texture differences to input resolution
+        and generalisation behaviour — and contributes to understanding how
+        the model achieves its performance.
+        """
     )
 
-    with st.expander("H1 — Texture & Color Variability", expanded=True):
+    with st.expander("H1 — Texture & Colour Variability", expanded=True):
         _section_h1()
 
     with st.expander("H2 — Input Size Impact", expanded=True):
@@ -228,12 +281,11 @@ def render():
     with st.expander("H3 — Data Augmentation Impact", expanded=True):
         _section_h3()
 
-    with st.expander("Training Curves", expanded=True):
+    with st.expander("Training Curves (Diagnostics)", expanded=True):
         _section_training_curves()
 
     st.caption(
-        "Note: If an element is missing, ensure the corresponding notebook has been executed to "
-        "export its artifacts to the expected folders."
+        "If some tables or figures are missing, corresponding evaluation artefacts may not be available on this deployment."
     )
 
 
