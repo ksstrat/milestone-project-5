@@ -19,7 +19,7 @@ page = st.sidebar.radio(
     "Go to:",
     [
         "Project Summary",
-        "Visual Study (BR1)",
+        "Visual Analysis",
         "Prediction (BR2)",
         "Hypotheses",
         "ML Performance Metrics",
@@ -30,7 +30,7 @@ page = st.sidebar.radio(
 # --- Page routing ---
 if page == "Project Summary":
     page_summary()
-elif page == "Visual Study (BR1)":
+elif page == "Visual Analysis":
     page_visual_study()
 elif page == "Prediction (BR2)":
     page_prediction()

@@ -17,7 +17,7 @@ def _img(p: Path, caption: str | None = None, use_container_width: bool = True):
 
 
 def render():
-    st.header("Visual Study (BR1)")
+    st.header("Visual Analysis")
 
     st.write(
         """
