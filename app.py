@@ -20,7 +20,7 @@ page = st.sidebar.radio(
     [
         "Project Summary",
         "Visual Analysis",
-        "Prediction (BR2)",
+        "Leaf Health Detector",
         "Hypotheses",
         "ML Performance Metrics",
     ],
@@ -32,7 +32,7 @@ if page == "Project Summary":
     page_summary()
 elif page == "Visual Analysis":
     page_visual_study()
-elif page == "Prediction (BR2)":
+elif page == "Leaf Health Detector":
     page_prediction()
 elif page == "Hypotheses":
     page_hypotheses()

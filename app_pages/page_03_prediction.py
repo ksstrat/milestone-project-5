@@ -115,7 +115,7 @@ def _format_results_table(df_raw: pd.DataFrame) -> pd.DataFrame:
 
 # --- Streamlit page layout ---
 def render():
-    st.header("Prediction (BR2)")
+    st.header("Leaf Health Detector")
 
     st.write(
         """
