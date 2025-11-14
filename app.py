@@ -22,7 +22,7 @@ page = st.sidebar.radio(
         "Visual Study (BR1)",
         "Prediction (BR2)",
         "Hypotheses",
-        "Technical",
+        "ML Performance Metrics",
     ],
     index=0,
 )
@@ -36,7 +36,7 @@ elif page == "Prediction (BR2)":
     page_prediction()
 elif page == "Hypotheses":
     page_hypotheses()
-elif page == "Technical":
+elif page == "ML Performance Metrics":
     page_technical()
 else:
     st.error("Unknown page selection.")
