@@ -26,7 +26,10 @@ CMP_V1_V3 = ARTIFACTS_DIR / "v3" / "reports" / "v1_vs_v3_mild_comparison.csv"
 
 
 # --- Safe loaders ---
-def _load_csv(path: Path, nrows: Optional[int] = None) -> Optional[pd.DataFrame]:
+def _load_csv(
+        path: Path,
+        nrows: Optional[int] = None
+) -> Optional[pd.DataFrame]:
     """Load CSV file and handle missing or invalid data."""
     try:
         if path.exists():
@@ -95,7 +98,10 @@ def _section_h1():
             st.markdown("**Class-wise Means / Medians (GLCM Features)**")
             st.dataframe(means, use_container_width=True, hide_index=True)
 
-    _img(PLOTS_V2_DIR / "glcm_boxplots.png", caption="GLCM Features — Boxplots by Class")
+    _img(
+        PLOTS_V2_DIR / "glcm_boxplots.png",
+        caption="GLCM Features — Boxplots by Class"
+    )
 
     st.caption(
         """
@@ -106,7 +112,12 @@ def _section_h1():
         """
     )
 
-    st.success("H1 is **supported** — clear statistical differences exist between the two classes.")
+    st.success(
+        """
+        H1 is **supported** — clear statistical differences exist between the
+        two classes.
+        """
+    )
 
 
 # --- H2 section ---
@@ -140,9 +151,15 @@ def _section_h2():
     cols = st.columns(2)
     with cols[0]:
         if rep_v1:
-            st.metric("v1 (100x100) — Accuracy", f"{rep_v1.get('test_accuracy', float('nan')):.4f}")
+            st.metric(
+                "v1 (100x100) — Accuracy",
+                f"{rep_v1.get('test_accuracy', float('nan')):.4f}"
+            )
         if rep_v2:
-            st.metric("v2 (50x50) — Accuracy", f"{rep_v2.get('test_accuracy', float('nan')):.4f}")
+            st.metric(
+                "v2 (50x50) — Accuracy",
+                f"{rep_v2.get('test_accuracy', float('nan')):.4f}"
+            )
     with cols[1]:
         if rep_v2:
             meets = rep_v2.get("meets_target", False)
@@ -154,9 +171,15 @@ def _section_h2():
 
     cols2 = st.columns(2)
     with cols2[0]:
-        _img(PLOTS_V4_DIR / "h2_accuracy_v1_vs_v2.png", caption="Accuracy Comparison")
+        _img(
+            PLOTS_V4_DIR / "h2_accuracy_v1_vs_v2.png",
+            caption="Accuracy Comparison"
+        )
     with cols2[1]:
-        _img(PLOTS_V4_DIR / "confusion_matrix_test_v2.png", caption="Confusion Matrix — v2")
+        _img(
+            PLOTS_V4_DIR / "confusion_matrix_test_v2.png",
+            caption="Confusion Matrix — v2"
+        )
 
     st.caption(
         """
@@ -167,7 +190,12 @@ def _section_h2():
         """
     )
 
-    st.success("H2 is **supported** — reduced input resolution did not compromise performance.")
+    st.success(
+        """
+        H2 is **supported** — reduced input resolution did not compromise
+        performance.
+        """
+    )
 
 
 # --- H3 section ---
@@ -201,9 +229,15 @@ def _section_h3():
     cols = st.columns(2)
     with cols[0]:
         if rep_v1:
-            st.metric("v1 (no augmentation) — Accuracy", f"{rep_v1.get('test_accuracy', float('nan')):.4f}")
+            st.metric(
+                "v1 (no augmentation) — Accuracy",
+                f"{rep_v1.get('test_accuracy', float('nan')):.4f}"
+            )
         if rep_v3:
-            st.metric("v3_mild (augmentation) — Accuracy", f"{rep_v3.get('test_accuracy', float('nan')):.4f}")
+            st.metric(
+                "v3_mild (augmentation) — Accuracy",
+                f"{rep_v3.get('test_accuracy', float('nan')):.4f}"
+            )
     with cols[1]:
         if rep_v3:
             meets = rep_v3.get("meets_target", False)
@@ -215,9 +249,15 @@ def _section_h3():
 
     cols2 = st.columns(2)
     with cols2[0]:
-        _img(PLOTS_V5_DIR / "h3_accuracy_v1_vs_v3_mild.png", caption="Accuracy Comparison — v1 vs. v3_mild")
+        _img(
+            PLOTS_V5_DIR / "h3_accuracy_v1_vs_v3_mild.png",
+            caption="Accuracy Comparison — v1 vs. v3_mild"
+        )
     with cols2[1]:
-        _img(PLOTS_V5_DIR / "confusion_matrix_test_v3_mild.png", caption="Confusion Matrix — v3_mild")
+        _img(
+            PLOTS_V5_DIR / "confusion_matrix_test_v3_mild.png",
+            caption="Confusion Matrix — v3_mild"
+        )
 
     st.caption(
         """
@@ -228,7 +268,12 @@ def _section_h3():
         """
     )
 
-    st.warning("H3 is **not supported** — augmentation reduced generalisation performance in this context.")
+    st.warning(
+        """
+        H3 is **not supported** — augmentation reduced generalisation
+        performance in this context.
+        """
+    )
 
 
 # --- Training curves ---
@@ -238,23 +283,41 @@ def _section_training_curves():
     st.write(
         """
         These curves illustrate how each model version behaved during training.
-        They help assess convergence, overfitting tendencies, and the effect of augmentation.
+        They help assess convergence, overfitting tendencies, and the effect
+        of augmentation.
         """
     )
 
     cols = st.columns(2)
     with cols[0]:
-        _img(PLOTS_V3_DIR / "training_curves_v1.png", caption="v1 — Training & Validation")
+        _img(
+            PLOTS_V3_DIR / "training_curves_v1.png",
+            caption="v1 — Training & Validation"
+        )
     with cols[1]:
-        _img(PLOTS_V3_DIR / "training_curves_v2.png", caption="v2 — Training & Validation")
+        _img(
+            PLOTS_V3_DIR / "training_curves_v2.png",
+            caption="v2 — Training & Validation"
+        )
 
     cols2 = st.columns(2)
     with cols2[0]:
-        _img(PLOTS_V5_DIR / "training_curves_v3.png", caption="v3 (strong augmentation)")
+        _img(
+            PLOTS_V5_DIR / "training_curves_v3.png",
+            caption="v3 (strong augmentation)"
+        )
     with cols2[1]:
-        _img(PLOTS_V5_DIR / "training_curves_v3_mild.png", caption="v3_mild (mild augmentation)")
+        _img(
+            PLOTS_V5_DIR / "training_curves_v3_mild.png",
+            caption="v3_mild (mild augmentation)"
+        )
 
-    st.caption("These diagnostics complement the hypothesis results by showing learning behaviour over time.")
+    st.caption(
+        """
+        These diagnostics complement the hypothesis results by showing
+        learning behaviour over time.
+        """
+    )
 
 
 # --- Page entrypoint ---
@@ -285,7 +348,10 @@ def render():
         _section_training_curves()
 
     st.caption(
-        "If some tables or figures are missing, corresponding evaluation artefacts may not be available on this deployment."
+        """
+        If some tables or figures are missing, corresponding evaluation
+        artefacts may not be available on this deployment.
+        """
     )
 
 

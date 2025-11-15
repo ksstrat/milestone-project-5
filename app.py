@@ -1,5 +1,11 @@
 import streamlit as st
-from src.paths import PROJECT_ROOT, DATA_DIR, MANIFESTS_DIR, PLOTS_DIR, ARTIFACTS_DIR
+from src.paths import (
+    PROJECT_ROOT,
+    DATA_DIR,
+    MANIFESTS_DIR,
+    PLOTS_DIR,
+    ARTIFACTS_DIR,
+)
 from app_pages.page_01_summary import page_summary
 from app_pages.page_02_visual_study import page_visual_study
 from app_pages.page_03_prediction import page_prediction

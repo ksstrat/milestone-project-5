@@ -22,14 +22,16 @@ MODEL_PATH = ARTIFACTS_DIR / "v1" / "models" / "cnn_v1_best.keras"
 @st.cache_resource(show_spinner=False)
 def _load_tf_and_model(model_path: Path):
     """
-    Load TensorFlow and the trained classification model (cached for efficiency).
+    Load TensorFlow and the trained classification model (cached for
+    efficiency).
     """
     import tensorflow as tf
 
     if not model_path.exists():
         raise FileNotFoundError(
-            "The model file required for prediction is not available on this deployment."
-            "Please contact the project owner or system maintainer."
+            "The model file required for prediction is not available on this "
+            "deployment. Please contact the project owner or "
+            "system maintainer."
         )
 
     model = tf.keras.models.load_model(model_path)
@@ -47,7 +49,9 @@ def _decode_resize_normalize(img: Image.Image, size=(100, 100)) -> np.ndarray:
 
 
 # --- Prediction helper ---
-def _predict_batch(files: List[st.runtime.uploaded_file_manager.UploadedFile]) -> pd.DataFrame:
+def _predict_batch(
+        files: List[st.runtime.uploaded_file_manager.UploadedFile]
+) -> pd.DataFrame:
     """
     Run batched predictions on uploaded files and return probabilities.
     """
@@ -64,7 +68,14 @@ def _predict_batch(files: List[st.runtime.uploaded_file_manager.UploadedFile]) -
             st.warning(f"Skipping '{f.name}': {e}")
 
     if not images:
-        return pd.DataFrame(columns=["filename", "pred_label", *LABELS, "confidence"])
+        return pd.DataFrame(
+            columns=[
+                "filename",
+                "pred_label",
+                *LABELS,
+                "confidence",
+            ]
+        )
 
     batch = np.stack(images, axis=0)
     probs = model.predict(batch, verbose=0)
@@ -86,16 +97,29 @@ def _predict_batch(files: List[st.runtime.uploaded_file_manager.UploadedFile]) -
 # --- Format output table for display ---
 def _format_results_table(df_raw: pd.DataFrame) -> pd.DataFrame:
     """
-    Format prediction results for user-friendly display (percentages and clean labels).
+    Format prediction results for user-friendly display (percentages and clean
+    labels).
     """
-    required = {"filename", "pred_label", "healthy", "powdery_mildew", "confidence"}
+    required = {
+        "filename",
+        "pred_label",
+        "healthy",
+        "powdery_mildew",
+        "confidence"
+    }
     missing = required.difference(df_raw.columns)
     if missing:
-        raise ValueError(f"Results table is missing required columns: {sorted(missing)}")
+        raise ValueError(
+            f"Results table is missing required columns: {sorted(missing)}"
+        )
 
     df = df_raw.copy()
-    df["Probability (Healthy)"] = (df["healthy"] * 100).round(1).astype(str) + "%"
-    df["Probability (Powdery Mildew)"] = (df["powdery_mildew"] * 100).round(1).astype(str) + "%"
+    df["Probability (Healthy)"] = (
+        df["healthy"] * 100
+        ).round(1).astype(str) + "%"
+    df["Probability (Powdery Mildew)"] = (
+        df["powdery_mildew"] * 100
+        ).round(1).astype(str) + "%"
     df["Confidence"] = (df["confidence"] * 100).round(1).astype(str) + "%"
 
     df = df.rename(columns={
@@ -119,8 +143,9 @@ def render():
 
     st.write(
         """
-        This page implements **Business Requirement 2 (BR2)** by providing an operational prediction interface.
-        You can upload one or more images of cherry leaves, and the model will classify each image as **healthy** or
+        This page implements **Business Requirement 2 (BR2)** by providing an
+        operational prediction interface. You can upload one or more images of
+        cherry leaves, and the model will classify each image as **healthy** or
         **powdery_mildew**.
         """
     )
@@ -128,17 +153,24 @@ def render():
     with st.expander("How the classification works", expanded=False):
         st.markdown(
             """
-            The prediction engine is based on a convolutional neural network (model v1) trained on the Cherry Leaves Dataset.
+            The prediction engine is based on a convolutional neural network
+            (model v1) trained on the Cherry Leaves Dataset.
 
             - Input images are resized to **100x100 pixels** and normalised.
-            - The model outputs probabilities for the two classes (*healthy* and *powdery_mildew*).
-            - The class with the higher probability is shown as the final prediction.
-            - Confidence values indicate how strongly the model supports its prediction.
+            - The model outputs probabilities for the two classes (*healthy*
+            and *powdery_mildew*).
+            - The class with the higher probability is shown as the final
+            prediction.
+            - Confidence values indicate how strongly the model supports its
+            prediction.
 
-            The deployed model has been evaluated on a held-out test set and meets the project target of at least **97% test accuracy**.
+            The deployed model has been evaluated on a held-out test set and
+            meets the project target of at least **97% test accuracy**.
 
-            You can use your own images or download example images of healthy and infected cherry leaves from the
-            [Cherry Leaves Dataset on Kaggle](https://www.kaggle.com/datasets/codeinstitute/cherry-leaves?resource=download).
+            You can use your own images or download example images of healthy
+            and infected cherry leaves from the
+            Cherry Leaves Dataset on
+            [Kaggle](https://www.kaggle.com/datasets/codeinstitute/cherry-leaves?resource=download).
             """
         )
 
@@ -155,13 +187,17 @@ def render():
     )
 
     if not uploaded_files:
-        st.info("No files selected yet. Please upload at least one image to start the analysis.")
+        st.info(
+            "No files selected yet. Please upload at least one image to start "
+            "the analysis."
+        )
         return
 
     if len(uploaded_files) > MAX_UPLOADS:
         st.warning(
             f"You selected {len(uploaded_files)} files. "
-            f"For performance reasons, only the first {MAX_UPLOADS} will be processed."
+            f"For performance reasons, only the first {MAX_UPLOADS} will be "
+            f"processed."
         )
         uploaded_files = uploaded_files[:MAX_UPLOADS]
 
@@ -177,7 +213,9 @@ def render():
 
     st.subheader("Results")
     if df_results is None or df_results.empty:
-        st.info("No predictions to display. Please check your files and try again.")
+        st.info(
+            "No predictions to display. Please check your files and try again."
+        )
         return
 
     df_display = _format_results_table(df_results)
@@ -198,11 +236,15 @@ def render():
     with st.expander("How to interpret the results", expanded=False):
         st.markdown(
             """
-            - **Prediction** shows the most likely class according to the model.
-            - **Probability columns** indicate how likely each class is, based on the model's output.
-            - **Confidence** reflects the highest class probability and gives a quick indication of how decisive the model was.
+            - **Prediction** shows the most likely class according to the
+            model.
+            - **Probability columns** indicate how likely each class is, based
+            on the model's output.
+            - **Confidence** reflects the highest class probability and gives
+            a quick indication of how decisive the model was.
 
-            This tool is intended to support inspection workflows and should be used alongside domain knowledge and good agricultural practice.
+            This tool is intended to support inspection workflows and should
+            be used alongside domain knowledge and good agricultural practice.
             """
         )
 
