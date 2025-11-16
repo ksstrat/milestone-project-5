@@ -36,7 +36,9 @@ def load_manifest(csv_path: Path) -> pd.DataFrame:
     df = pd.read_csv(csv_path)
     expected = {"filepath", "label"}
     if not expected.issubset(df.columns):
-        raise ValueError(f"Manifest must contain columns {expected}, got: {set(df.columns)}")
+        raise ValueError(
+            f"Manifest must contain columns {expected}, got: {set(df.columns)}"
+        )
 
     df["filepath"] = df["filepath"].apply(lambda p: str(Path(p).resolve()))
     return df
@@ -67,11 +69,14 @@ def build_label_map(df: pd.DataFrame) -> Dict[str, int]:
 
 def read_image_rgb01(path: Path, spec: ImageSpec) -> np.ndarray:
     """
-    Read an image from disk, convert to RGB, resize to spec.size, and return float32 array in [0,1], shape [H,W,C].
+    Read an image from disk, convert to RGB, resize to spec.size, and return
+    float32 array in [0,1], shape [H,W,C].
     """
     path = Path(path)
     if path.suffix.lower() not in ALLOWED_EXTS:
-        raise ValueError(f"Unsupported extension: {path.suffix} for file {path}")
+        raise ValueError(
+            f"Unsupported extension: {path.suffix} for file {path}"
+        )
 
     with Image.open(path) as im:
         im = im.convert("RGB").resize(spec.size)
