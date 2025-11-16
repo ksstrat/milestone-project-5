@@ -237,14 +237,30 @@ def _section_repro_and_limits():
 def render():
     st.header("ML Performance Metrics")
     _section_overview()
-    st.divider()
-    _section_data_and_versions()
-    st.divider()
-    _section_training_setup()
-    st.divider()
-    _section_metrics_and_artifacts()
-    st.divider()
-    _section_repro_and_limits()
+
+    with st.expander(
+        "Data splits and model versions",
+        expanded=True,
+    ):
+        _section_data_and_versions()
+
+    with st.expander(
+        "Training configuration and learning behaviour",
+        expanded=True,
+    ):
+        _section_training_setup()
+
+    with st.expander(
+        "Test metrics and confusion matrices",
+        expanded=True,
+    ):
+        _section_metrics_and_artifacts()
+
+    with st.expander(
+        "Interpretation, reproducibility and next steps",
+        expanded=True,
+    ):
+        _section_repro_and_limits()
 
 
 def page_technical():
