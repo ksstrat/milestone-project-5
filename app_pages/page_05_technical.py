@@ -100,11 +100,11 @@ def _section_data_and_versions():
 
         The following model versions are included in this analysis:
 
-        - **v1** — 100x100 input resolution, no augmentation (baseline
+        - **v1** - 100x100 input resolution, no augmentation (baseline
         reference model)
-        - **v2** — 50x50 input resolution, no augmentation (efficiency
+        - **v2** - 50x50 input resolution, no augmentation (efficiency
         experiment for H2)
-        - **v3-mild** — 100x100 input resolution, mild augmentation
+        - **v3-mild** - 100x100 input resolution, mild augmentation
         (generalisation experiment for H3)
 
         All versions share the same CNN architecture and training
@@ -138,11 +138,11 @@ def _section_training_setup():
 
     cols = st.columns(3)
     with cols[0]:
-        _img(CURVES_V1, "Training & Validation — v1 (baseline)")
+        _img(CURVES_V1, "Training & Validation - v1 (baseline)")
     with cols[1]:
-        _img(CURVES_V2, "Training & Validation — v2 (50x50)")
+        _img(CURVES_V2, "Training & Validation - v2 (50x50)")
     with cols[2]:
-        _img(CURVES_V3, "Training & Validation — v3-mild (augmentation)")
+        _img(CURVES_V3, "Training & Validation - v3-mild (augmentation)")
 
 
 def _section_metrics_and_artifacts():
@@ -186,11 +186,11 @@ def _section_metrics_and_artifacts():
 
     cols = st.columns(3)
     with cols[0]:
-        _img(CM_V1, "Confusion Matrix — v1 (baseline)")
+        _img(CM_V1, "Confusion Matrix - v1 (baseline)")
     with cols[1]:
-        _img(CM_V2, "Confusion Matrix — v2 (50x50)")
+        _img(CM_V2, "Confusion Matrix - v2 (50x50)")
     with cols[2]:
-        _img(CM_V3, "Confusion Matrix — v3-mild (augmentation)")
+        _img(CM_V3, "Confusion Matrix - v3-mild (augmentation)")
 
     st.caption(
         """

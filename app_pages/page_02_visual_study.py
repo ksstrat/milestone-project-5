@@ -82,11 +82,11 @@ def render():
         )
         c1, c2 = st.columns(2)
         with c1:
-            _img(PLOTS_V1_DIR / "var_healthy.png", "Variability — Healthy")
+            _img(PLOTS_V1_DIR / "var_healthy.png", "Variability - Healthy")
         with c2:
             _img(
                 PLOTS_V1_DIR / "var_powdery_mildew.png",
-                "Variability — Powdery Mildew"
+                "Variability - Powdery Mildew"
             )
 
     # Difference map

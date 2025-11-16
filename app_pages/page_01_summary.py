@@ -11,7 +11,7 @@ def page_project_summary():
         """
         This dashboard presents an end-to-end machine-learning system
         developed to detect **powdery mildew** on cherry leaves.
-        It consolidates the full analytical workflow—from dataset exploration
+        It consolidates the full analytical workflow-from dataset exploration
         and hypothesis validation to model evaluation and an operational
         prediction interface for analysing new leaf images.
         """
@@ -100,7 +100,7 @@ def page_project_summary():
     st.markdown(
         """
         For a comprehensive description of the full analytical
-        process—including data exploration, hypothesis validation, modelling
+        process-including data exploration, hypothesis validation, modelling
         decisions, and deployment setup-please refer to the project's detailed
         **[README.md](https://github.com/ksstrat/milestone-project-5/blob/main/README.md)**.
         """

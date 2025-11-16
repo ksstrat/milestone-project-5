@@ -66,7 +66,7 @@ def _img(path: Path, caption: str | None = None):
 
 # --- H1 section ---
 def _section_h1():
-    st.subheader("H1 — Texture & Colour Variability")
+    st.subheader("H1 - Texture & Colour Variability")
 
     st.write(
         """
@@ -100,13 +100,13 @@ def _section_h1():
 
     _img(
         PLOTS_V2_DIR / "glcm_boxplots.png",
-        caption="GLCM Features — Boxplots by Class"
+        caption="GLCM Features - Boxplots by Class"
     )
 
     st.caption(
         """
-        Interpretation: Multiple GLCM features—such as contrast, homogeneity,
-        and energy—differ significantly between
+        Interpretation: Multiple GLCM features-such as contrast, homogeneity,
+        and energy-differ significantly between
         healthy leaves and mildew-infected leaves. This confirms that the
         disease affects leaf texture in a measurable way.
         """
@@ -114,7 +114,7 @@ def _section_h1():
 
     st.success(
         """
-        H1 is **supported** — clear statistical differences exist between the
+        H1 is **supported** - clear statistical differences exist between the
         two classes.
         """
     )
@@ -122,7 +122,7 @@ def _section_h1():
 
 # --- H2 section ---
 def _section_h2():
-    st.subheader("H2 — Input Size Impact (100x100 → 50x50)")
+    st.subheader("H2 - Input Size Impact (100x100 → 50x50)")
 
     st.write(
         """
@@ -152,12 +152,12 @@ def _section_h2():
     with cols[0]:
         if rep_v1:
             st.metric(
-                "v1 (100x100) — Accuracy",
+                "v1 (100x100) - Accuracy",
                 f"{rep_v1.get('test_accuracy', float('nan')):.4f}"
             )
         if rep_v2:
             st.metric(
-                "v2 (50x50) — Accuracy",
+                "v2 (50x50) - Accuracy",
                 f"{rep_v2.get('test_accuracy', float('nan')):.4f}"
             )
     with cols[1]:
@@ -166,7 +166,7 @@ def _section_h2():
             st.markdown(f"**Target ≥ 0.97 met?** {meets}")
 
     if cmp_v1_v2 is not None and not cmp_v1_v2.empty:
-        st.markdown("**Comparison Table — v1 vs. v2**")
+        st.markdown("**Comparison Table - v1 vs. v2**")
         st.dataframe(cmp_v1_v2, use_container_width=True, hide_index=True)
 
     cols2 = st.columns(2)
@@ -178,7 +178,7 @@ def _section_h2():
     with cols2[1]:
         _img(
             PLOTS_V4_DIR / "confusion_matrix_test_v2.png",
-            caption="Confusion Matrix — v2"
+            caption="Confusion Matrix - v2"
         )
 
     st.caption(
@@ -192,7 +192,7 @@ def _section_h2():
 
     st.success(
         """
-        H2 is **supported** — reduced input resolution did not compromise
+        H2 is **supported** - reduced input resolution did not compromise
         performance.
         """
     )
@@ -200,7 +200,7 @@ def _section_h2():
 
 # --- H3 section ---
 def _section_h3():
-    st.subheader("H3 — Data Augmentation Impact")
+    st.subheader("H3 - Data Augmentation Impact")
 
     st.write(
         """
@@ -209,8 +209,8 @@ def _section_h3():
         introducing controlled variability during training and reducing
         overfitting on the original dataset.
 
-        This hypothesis tests whether simulated transformations — such as
-        light flips, rotations, and brightness adjustments — improve
+        This hypothesis tests whether simulated transformations - such as
+        light flips, rotations, and brightness adjustments - improve
         robustness against real-world image variation, where lighting,
         orientation, and leaf presentation may differ from the curated dataset.
 
@@ -230,12 +230,12 @@ def _section_h3():
     with cols[0]:
         if rep_v1:
             st.metric(
-                "v1 (no augmentation) — Accuracy",
+                "v1 (no augmentation) - Accuracy",
                 f"{rep_v1.get('test_accuracy', float('nan')):.4f}"
             )
         if rep_v3:
             st.metric(
-                "v3_mild (augmentation) — Accuracy",
+                "v3_mild (augmentation) - Accuracy",
                 f"{rep_v3.get('test_accuracy', float('nan')):.4f}"
             )
     with cols[1]:
@@ -244,19 +244,19 @@ def _section_h3():
             st.markdown(f"**Target ≥ 0.97 met?** {meets}")
 
     if cmp_v1_v3 is not None and not cmp_v1_v3.empty:
-        st.markdown("**Comparison Table — v1 vs. v3_mild**")
+        st.markdown("**Comparison Table - v1 vs. v3_mild**")
         st.dataframe(cmp_v1_v3, use_container_width=True, hide_index=True)
 
     cols2 = st.columns(2)
     with cols2[0]:
         _img(
             PLOTS_V5_DIR / "h3_accuracy_v1_vs_v3_mild.png",
-            caption="Accuracy Comparison — v1 vs. v3_mild"
+            caption="Accuracy Comparison - v1 vs. v3_mild"
         )
     with cols2[1]:
         _img(
             PLOTS_V5_DIR / "confusion_matrix_test_v3_mild.png",
-            caption="Confusion Matrix — v3_mild"
+            caption="Confusion Matrix - v3_mild"
         )
 
     st.caption(
@@ -270,7 +270,7 @@ def _section_h3():
 
     st.warning(
         """
-        H3 is **not supported** — augmentation reduced generalisation
+        H3 is **not supported** - augmentation reduced generalisation
         performance in this context.
         """
     )
@@ -292,12 +292,12 @@ def _section_training_curves():
     with cols[0]:
         _img(
             PLOTS_V3_DIR / "training_curves_v1.png",
-            caption="v1 — Training & Validation"
+            caption="v1 - Training & Validation"
         )
     with cols[1]:
         _img(
             PLOTS_V3_DIR / "training_curves_v2.png",
-            caption="v2 — Training & Validation"
+            caption="v2 - Training & Validation"
         )
 
     cols2 = st.columns(2)
@@ -328,20 +328,20 @@ def render():
         """
         This page summarises the three hypotheses developed during the
         analytical phase of the project.
-        Each hypothesis examines a different aspect of the problem — from
+        Each hypothesis examines a different aspect of the problem - from
         texture differences to input resolution
-        and generalisation behaviour — and contributes to understanding how
+        and generalisation behaviour - and contributes to understanding how
         the model achieves its performance.
         """
     )
 
-    with st.expander("H1 — Texture & Colour Variability", expanded=True):
+    with st.expander("H1 - Texture & Colour Variability", expanded=True):
         _section_h1()
 
-    with st.expander("H2 — Input Size Impact", expanded=True):
+    with st.expander("H2 - Input Size Impact", expanded=True):
         _section_h2()
 
-    with st.expander("H3 — Data Augmentation Impact", expanded=True):
+    with st.expander("H3 - Data Augmentation Impact", expanded=True):
         _section_h3()
 
     with st.expander("Training Curves (Diagnostics)", expanded=True):
