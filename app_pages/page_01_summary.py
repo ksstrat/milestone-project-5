@@ -106,8 +106,6 @@ def page_project_summary():
         """
     )
 
-    st.caption("Cherry Leaf Mildew Detection Dashboard - 2025")
-
 
 # Backwards-compatible alias expected by app.py
 def page_summary():

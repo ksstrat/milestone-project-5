@@ -49,4 +49,4 @@ else:
 
 # --- Sidebar footer info ---
 st.sidebar.markdown("---")
-st.sidebar.caption("Cherry Leaves Project · 2025")
+st.sidebar.caption("Cherry Leaf Mildew Detection Dashboard - 2025")
