@@ -66,8 +66,6 @@ def _img(path: Path, caption: str | None = None):
 
 # --- H1 section ---
 def _section_h1():
-    st.subheader("H1 - Texture & Colour Variability")
-
     st.write(
         """
         **Hypothesis:**
@@ -122,8 +120,6 @@ def _section_h1():
 
 # --- H2 section ---
 def _section_h2():
-    st.subheader("H2 - Input Size Impact (100x100 → 50x50)")
-
     st.write(
         """
         **Hypothesis:**
@@ -200,8 +196,6 @@ def _section_h2():
 
 # --- H3 section ---
 def _section_h3():
-    st.subheader("H3 - Data Augmentation Impact")
-
     st.write(
         """
         **Hypothesis:**
@@ -278,8 +272,6 @@ def _section_h3():
 
 # --- Training curves ---
 def _section_training_curves():
-    st.subheader("Training Curves (Diagnostics)")
-
     st.write(
         """
         These curves illustrate how each model version behaved during training.

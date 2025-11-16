@@ -89,7 +89,6 @@ def _section_overview():
 
 
 def _section_data_and_versions():
-    st.subheader("Data Splits and Model Versions")
     st.markdown(
         """
         The models were trained and evaluated on a labelled
@@ -115,7 +114,6 @@ def _section_data_and_versions():
 
 
 def _section_training_setup():
-    st.subheader("Training Configuration and Learning Behaviour")
     st.markdown(
         """
         All three model versions were trained under a common configuration:
@@ -146,8 +144,6 @@ def _section_training_setup():
 
 
 def _section_metrics_and_artifacts():
-    st.subheader("Test Performance and Confusion Matrices")
-
     rep_v1 = _load_json(REP_V1)
     rep_v2 = _load_json(REP_V2)
     rep_v3 = _load_json(REP_V3)
@@ -203,7 +199,6 @@ def _section_metrics_and_artifacts():
 
 
 def _section_repro_and_limits():
-    st.subheader("Interpretation, Reproducibility and Next Steps")
     st.markdown(
         """
         From a business perspective, the key outcome is that the selected
